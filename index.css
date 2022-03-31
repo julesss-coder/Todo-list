@@ -1,0 +1,22 @@
+.todo-item {
+  margin: 15px 0 15px 5px;
+  animation-name: fadeIn;
+  animation-duration: 0.2s;
+  animation-timing-function: linear;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+}
+
+#inputField {
+  margin: 5px 0 10px 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  } 
+  to {
+    opacity: 1;
+  }
+}
+
