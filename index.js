@@ -1,76 +1,72 @@
-// Global variables
-
-var toDoList = document.getElementById('todo-list');
-var addToDoButton = document.getElementById('addToDoButton');
-var removeToDoButtons = document.getElementsByClassName('remove-button');
-var newToDo;
-var toDoItems = 0;
-var inputFocus = false;
-var inputField = document.getElementById('inputField');
+document.addEventListener('DOMContentLoaded', function() {
+  var toDoList = document.getElementById('todo-list');
+  var addToDoButton = document.getElementById('addToDoButton');
+  var removeToDoButtons = document.getElementsByClassName('remove-button');
+  var inputFocus = false;
+  var inputField = document.getElementById('inputField');
 
 
-// -------------- Add toDos ------------------------
-var addToDo = function() {
-  newToDo = inputField.value;
-  toDoItems++;
-  // Add the new todo and a remove button
-  toDoList.insertAdjacentHTML('beforeend', 
-  `<div id="toDoItem-${toDoItems}" class="row todo-item" style="opacity: 0">
-    <h5 class="col-xs-8">${newToDo}</h5>
-    <button class="btn btn-danger remove-button">Remove</button>
-  </div>`);
-  inputField.value = '';
-};
+  // -------------- Add toDos ------------------------
+  var addToDo = function() {
+    var toDoItemDiv = document.createElement('div');
+    toDoItemDiv.classList.add('row', 'todo-item');
 
-// ToDos can be added by inputting todo and clicking the "add to do" button
-window.addEventListener('click', 
-function(event) {
-  if (inputField.value.length > 0) {
-    if (event.target === addToDoButton) {
+    var toDoItem = document.createElement('h5');
+    toDoItem.classList.add('col-xs-8');
+    toDoItem.textContent = inputField.value;
+
+    var removeToDoButton = document.createElement('button');
+    removeToDoButton.classList.add('btn', 'btn-danger', 'remove-button');
+    removeToDoButton.textContent= 'Remove';
+
+    toDoItemDiv.appendChild(toDoItem);
+    toDoItemDiv.appendChild(removeToDoButton);
+
+    toDoList.appendChild(toDoItemDiv);
+  };
+
+  var checkThenAddToDo = function() {
+    if (inputField.value !== '') {
       addToDo();
+      inputField.value = '';
+    } 
+  };
+
+  // Todos can be added by entering todo and 1) hitting 'Enter' or 2) clicking the 'Add todo' button
+  addToDoButton.addEventListener('click', checkThenAddToDo);
+  inputField.addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+      checkThenAddToDo();
     }
-  }
+  });
+
+
+
+  // ------ Add visual focus on input field upon click ----------
+  var focusInputField = function(event) {
+    if (event.target === inputField) {
+      inputFocus = true;
+      inputField.classList.add('box-shadow');
+    } else {
+      if (inputFocus === true) {
+        inputField.classList.remove('box-shadow');
+        inputFocus = false;
+      }
+    }
+  };
+
+  window.addEventListener('click', focusInputField);
+
+
+  // ----------- Remove toDos --------------------
+  var removeToDo = function(event) {
+    for (var i = 0; i < removeToDoButtons.length; i++) {
+      if (removeToDoButtons[i] === event.target) {
+        var toDoToRemove = event.target;
+        toDoToRemove.parentElement.remove();
+      }
+    }
+  };
+
+  toDoList.addEventListener('click', removeToDo);
 });
-
-// ToDos can also be added by inputting todo and hitting Enter key
-window.addEventListener('keyup', function(event) {
-  if (inputField.value.length > 0) {
-    if (event.key === "Enter") {
-      addToDo(event);
-    }
-  }
-});
-
-
-
-// ------ Add visual focus on input field upon click ----------
-var focusInputField = function(event) {
-  if (event.target === inputField) {
-    inputFocus = true;
-    inputField.classList.add('box-shadow');
-  } else {
-    if (inputFocus === true) {
-      inputField.classList.remove('box-shadow');
-      inputFocus = false;
-    }
-  }
-};
-
-window.addEventListener('click', focusInputField);
-
-
-// ----------- Remove toDos --------------------
-var removeToDo = function(event) {
-  console.log(event);
-  console.log('window.event: ', window.event);
-  for (var i = 0; i < removeToDoButtons.length; i++) {
-    if (removeToDoButtons[i] === event.target) {
-      var toDoId = i + 1;
-      var toDoToRemove = document.getElementById(`toDoItem-${toDoId}`);
-      toDoToRemove.remove();
-      toDoItems--;
-    }
-  }
-};
-
-toDoList.addEventListener('click', removeToDo);

@@ -33,7 +33,7 @@ WHAT I LEARNED:
 - It is possible to add class="col-xs-8" etc. to the element carrying the content itself. I don't have to make a div class="col-xs-8"and then add a <p> with the content (the latter messed up the alignment, the former created correct alignment).
 
 
-
+***JavaScript:***
 **Does an event handler get the `event` argument automatically (`window.event`), or do I need to pass it in?**
 
 The event property of the global object (window on the Web) was initially added by Microsoft in Internet Explorer. As it often happens, it then gradually found its way into other popular Web browsers and stayed there becoming another de-facto "standard" -- that is, without being formally specified by any actual authority at the time.
@@ -44,3 +44,11 @@ Web developers are strongly encouraged to instead rely on the Event object passe
 
 So, the idiomatic solution to the broad class of problems your use case belongs to is to attach an event listener on the element or its ancestor, typically with the addEventListener function, and be using the event object that is explicitly passed to the listener.
 URL: https://stackoverflow.com/questions/58341832/event-is-deprecated-what-should-be-used-instead 
+
+**Event listeners on input fields can detect keyup events. No need to add event listener to window instead.**
+
+**DRY code**
+I realized I had repeated myself in some places and repaired that by placing the repeated code inside a function.
+
+'There’s a principle in programming called DRY, or Don’t Repeat Yourself. It usually means refactoring code by taking something done several times and turning it into a loop or a function. DRY code is easy to change, because you only have to make any change in one place.'
+URL: https://codinglead.co/javascript/what-is-DRY-code
