@@ -8,10 +8,23 @@
   - [ ] The button should appear "pressed down" when clicked, and normal again after the click
     // The button remains active until you click elsewhere. I looked up a bootstrap example page on buttons, and they behaved the same way. It seems to be a default behaviour of Bootstrap 3.
     // I could change this by styling the button without Bootstrap classes, but with regular CSS.
-- [x] Each list item should have a remove button.
+- [x] Each todo item should have a remove button.
   - [x] Clicking the remove button should remove the respective todo.
+- [x] Each todo item should habe a checkbox.
+  - [x] Clicking the checkbox should check it.
+  - [x] Clicking the checkbox should NOT remove it. Only clicking the item's "remove" button should remove it. 
 
-Goal: https://jqueryium-lab-to-do-list--altcademy.repl.co/
+Editing a todo
+- [ ] Each todo should be editable by double-clicking it. The new value entered (or the unchanged value) should be displayed in place of the original todo, after hitting Enter (not after clicking "Add todo").
+
+Overview of todos below the input field
+- [ ] The number of (not completed, ie. unchecked) todo items left should be shown.
+- [ ] There should be a way to select to display all, all active, and all completed todos.
+- [ ] There should be text "Clear completed".
+  - [ ] Clicking on "Clear completed" should delete the completed todos.
+
+Initial goal: https://jqueryium-lab-to-do-list--altcademy.repl.co/
+Goal after adding additional requirements: https://todomvc.com/examples/vanillajs/ (regarding the function, not the looks)
 
 
 

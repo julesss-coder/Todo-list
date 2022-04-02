@@ -5,9 +5,24 @@
   animation: fadeIn 0.2s linear normal forwards;
 }
 
+.todo-item .col-xs-8 {
+  padding-left: 0;
+}
+
 #inputField {
   margin: 5px 0 10px 0;
 }
+
+/* Editing todos */
+.todo-item.editing label,
+.todo-item.editing .remove-button {
+  display: none;
+}
+
+.todo-item .edited {
+  display: none;
+}
+
 
 @keyframes fadeIn {
   from {
