@@ -6,34 +6,40 @@ document.addEventListener('DOMContentLoaded', function() {
   var inputField = document.getElementById('inputField');
 
 
-  // -------------- Add toDos ------------------------
+  // =========================================== Add toDos ===============================================================
   var addToDo = function() {
     var toDoItemDiv = document.createElement('div');
     toDoItemDiv.classList.add('row', 'todo-item');
+
+    // Create div for todo item, will be hidden when editing todo
+    var toDoView = document.createElement('div');
+    toDoView.classList.add('view');
 
     // Create checkbox in front of todo item
     var checkBox = document.createElement('input');
     checkBox.setAttribute('type', 'checkbox');
     checkBox.setAttribute('class', 'col-xs-1');
     
-  //   <input type="checkbox" id="scales" name="scales">
-  // <label for="scales">Scales</label>
-
+    // Create label that shows todo text
     var toDoItem = document.createElement('label');
     toDoItem.setAttribute('class', 'col-xs-8');
     toDoItem.textContent = inputField.value;
 
-    // var toDoItem = document.createElement('h5');
-    // toDoItem.classList.add('col-xs-8');
-    // toDoItem.textContent = inputField.value;
-
+    // Create remove button
     var removeToDoButton = document.createElement('button');
     removeToDoButton.classList.add('btn', 'btn-danger', 'remove-button');
     removeToDoButton.textContent= 'Remove';
 
-    toDoItemDiv.appendChild(checkBox);
-    toDoItemDiv.appendChild(toDoItem);
-    toDoItemDiv.appendChild(removeToDoButton);
+    // Create input field that shows when editing
+    var inputEdit = document.createElement('input');
+    inputEdit.classList.add('col-xs-8');
+    inputEdit.classList.add('edit'); // What do I need to do with .edit? 
+
+    toDoView.appendChild(checkBox);
+    toDoView.appendChild(toDoItem);
+    toDoView.appendChild(removeToDoButton);
+    toDoItemDiv.appendChild(toDoView);
+    toDoItemDiv.appendChild(inputEdit);
 
     toDoList.appendChild(toDoItemDiv);
   };
@@ -45,8 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
     } 
   };
 
-  // Todos can be added by entering todo and 1) hitting 'Enter' or 2) clicking the 'Add todo' button
+
+  // -----------Todos can be added by entering todo and 1) clicking the 'Add todo' button, or...-----------
   addToDoButton.addEventListener('click', checkThenAddToDo);
+
+  // -----------2) hitting 'Enter' ------------------------
   inputField.addEventListener('keyup', function(event) {
     if (event.key === 'Enter') {
       checkThenAddToDo();
@@ -54,8 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 
-
-  // ------ Add visual focus on input field upon click ----------
+  // ===================================== Add visual focus on input field upon click =================================
   var focusInputField = function(event) {
     if (event.target === inputField) {
       inputFocus = true;
@@ -71,10 +79,11 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('click', focusInputField);
 
 
-  // ----------- Remove toDos --------------------
+  // ==================================== Remove toDos =======================================================================
   var removeToDo = function() {
     var toDoToRemove = event.target;
-    toDoToRemove.parentElement.remove();
+    // Remove whole div.row.todo-item, not just div.view
+    toDoToRemove.parentElement.parentElement.remove();
   };
 
   toDoList.addEventListener('click', function(event) {
@@ -85,75 +94,59 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  //------- Edit todos -------------------------------
 
+  //====================================== Edit todos ============================================================================
+
+  // ------------------- Handle new entries when editing -----------------------
   var editToDo = function() {
-    var currentToDoToEdit = document.getElementsByClassName('editing')[0];
-    console.log('currentToDoToEdit: ', currentToDoToEdit);
-    // this adds two input fields to one todo item
-    // todos disappear (as intended)
-   
-    var editInputField = document.createElement('input');
-    editInputField.classList.add('edit');
-    // add bootstrap classes, also for focus
-    editInputField.classList.add('col-xs-8');
-    currentToDoToEdit.appendChild(editInputField);
+    var input = event.target.parentElement;
+    // .editing on div.row.todo-item makes div.view invisible
+    input.parentElement.classList.add('editing');
+    input = input.parentElement.querySelector('.edit');
+    input.value = event.target.textContent;
+    input.focus();
   };
 
-    
-  // listens for dblclicks
+
   toDoList.addEventListener('dblclick', function(event) {
-    for (var i = 0; i < toDoList.children.length; i++) {
-      // What is the event.target in case of a doubleclick? 
-      // It is the label!!
-      console.log('event.target: ', event.target);
-      // If event.target is the second child of the current child element of toDoList, ie. the label element of that child:
-      if (event.target === toDoList.children[i].children[1]) {
-        // todo item becomes invisible immediately - put this later in the code?
-        toDoList.children[i].classList.add('editing');
-        editToDo();
+    if (event.target.nodeName === 'LABEL') {
+      editToDo();
+    }
+  });
+
+
+  // ------------------Save new input or escape ----------------------------
+  var editKeyUp = function() {
+    var editedToDo = event.target;
+
+    if (event.key === 'Enter') {
+      // display new text instead of old todo
+      editedToDo.parentElement.getElementsByTagName('label')[0].textContent = editedToDo.value;
+      editedToDo.blur();
+      editedToDo.parentElement.classList.remove('editing');
+    } else if (event.key === 'Escape') {
+      // blur() doesn't do anything - is there a Bootstrap 3 way of doing this?
+      editedToDo.blur();
+      editedToDo.parentElement.classList.remove('editing');
+    }    
+  };
+
+  toDoList.addEventListener('keyup', function(event) {
+    // If keyup event happened on edit input field:
+    if (event.target.classList.contains('edit') === true) {
+      editKeyUp();
+    }
+  });
+
+  // ------------ Handle when user starts editing todo and then clicks outside input field ---------------------------
+  window.addEventListener('click', function(event) {
+    // If user is currently editing input, ie. if '.editing' exists:
+    if (document.querySelector('.editing')) {
+      // If user clicks outside current input field:
+      if (event.target.classList.contains('edit') === false) {
+        // Make div.view visible, make input.edit invisible
+        document.querySelector('.editing').classList.remove('editing');
       }
     }
   });
-
-  // listens for keyup events
-  toDoList.addEventListener('keyup', function(event) {
-    var editInputField = document.getElementsByClassName('edit')[0];
-    console.log('event.target: ', event.target);
-    if (editInputField.value !== '') {
-      if (event.key === 'Enter') {
-        //not defined
-        editInputField.parentElement.children[1].textContent = editInputField.value;
-        editInputField.parentElement.classList.remove('editing');
-        editInputField.classList.add('edited');
-      } 
-    }
-  });
-
-
 });
-
-
-  
-
-/* 
-PROBLEMS:
-
-Displaying edited content after editing todo item does not work in all cases
-
-Last entry in input field is not deleted upon adding todo, or is displayed again // cannot reproduce issue
-
-When editing a todo and clicking outside the edit input field, and clicking back into it, the Enter key does not lead to the edited todo being displayed as a regular todo item.
-  When I dblclcik on another todo to edit it, the previous one still displays the input field. The enter key does not save the current todo either.
-
-Nothing happens when user hits Esc after editing a todo.
-
-delete input element on todo item when finished editing
-Is it possible to add two input fields on one todo item by dblclicking several times?
-
-removeToDo should not run everytime I click on a todo item. 
-- Q: Can I add an event listener to the remove button?
-- A: But then I would have as many event listeners as remove buttons.
-- Better to check if the event-target is a remove button
-
-*/

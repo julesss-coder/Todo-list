@@ -1,5 +1,6 @@
 **Requirements:**
 
+*Basic components:*
 - [x] It should have a headline
 - [x] It should have an input field for new todos
   - [x] The input field should visually show when it is in focus.
@@ -13,11 +14,16 @@
 - [x] Each todo item should habe a checkbox.
   - [x] Clicking the checkbox should check it.
   - [x] Clicking the checkbox should NOT remove it. Only clicking the item's "remove" button should remove it. 
+- [ ] The to-do items and their remove buttons should be aligned!!
 
-Editing a todo
-- [ ] Each todo should be editable by double-clicking it. The new value entered (or the unchanged value) should be displayed in place of the original todo, after hitting Enter (not after clicking "Add todo").
+*Editing a todo:*
+- [x] Each todo should be editable by double-clicking it. 
+- [x] Upon doubleclicking a todo item, the item should be shown (vs. an empty input field).
+- [x] The new value entered (or the unchanged value) should be displayed in place of the original todo, after hitting Enter (not after clicking "Add todo").
+- [x] Upon editing a todo and hitting "Escape", the input field should be hidden and the original todo displayed again.
+- [x] Upon editing a todo and clicking outside the input field, the input field should be hidden and the original todo displayed again. 
 
-Overview of todos below the input field
+*Overview of todos below the input field:* 
 - [ ] The number of (not completed, ie. unchecked) todo items left should be shown.
 - [ ] There should be a way to select to display all, all active, and all completed todos.
 - [ ] There should be text "Clear completed".
@@ -44,6 +50,7 @@ WHAT I LEARNED:
 - However, this may not be the case with webpages that have breakpoints.
 - Draw out grid system on paper to see how to set it up in HTML.
 - It is possible to add class="col-xs-8" etc. to the element carrying the content itself. I don't have to make a div class="col-xs-8"and then add a <p> with the content (the latter messed up the alignment, the former created correct alignment).
+- QuerySelector etc. can be used based on other elements than just the document element.
 
 
 ***JavaScript:***

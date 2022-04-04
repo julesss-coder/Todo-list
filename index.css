@@ -13,16 +13,20 @@
   margin: 5px 0 10px 0;
 }
 
-/* Editing todos */
-.todo-item.editing label,
-.todo-item.editing .remove-button {
+/* Stimmt die Auswahl und Verkettung der Selektoren? */
+.todo-item.editing div.view {
   display: none;
 }
 
-.todo-item .edited {
+
+input.edit {
   display: none;
 }
 
+/* Stimmt die Auswahl und Verkettung der Selektoren? */
+.todo-item.editing input.edit {
+  display: block;
+}
 
 @keyframes fadeIn {
   from {
