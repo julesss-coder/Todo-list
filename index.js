@@ -3,42 +3,83 @@ document.addEventListener('DOMContentLoaded', function() {
   var addToDoButton = document.getElementById('addToDoButton');
   var removeToDoButtons = document.getElementsByClassName('remove-button');
   var inputFocus = false;
-  var inputField = document.getElementById('inputField');
+  var inputField = document.querySelector('.inputField');
 
 
   // =========================================== Add toDos ===============================================================
+  // var addToDo = function() {
+  //   var toDoItemDiv = document.createElement('div');
+  //   toDoItemDiv.classList.add('row', 'todo-item');
+
+  //   // Create div for todo item, will be hidden when editing todo
+  //   var toDoView = document.createElement('div');
+  //   toDoView.classList.add('view');
+
+  //   // Create checkbox in front of todo item
+  //   var checkBox = document.createElement('input');
+  //   checkBox.setAttribute('type', 'checkbox');
+  //   checkBox.setAttribute('class', 'col-xs-1');
+    
+  //   // Create label that shows todo text
+  //   var toDoItem = document.createElement('label');
+  //   // toDoItem.setAttribute('class', 'col-xs-8');
+  //   toDoItem.classList.add('col-xs-7', 'col-sm-8');
+  //   toDoItem.textContent = inputField.value;
+
+  //   // Create remove button
+  //   var removeToDoButton = document.createElement('button');
+  //   removeToDoButton.classList.add('btn', 'remove-button', 'col-xs-offset-1');
+  //   removeToDoButton.textContent= 'Remove';
+
+  //   // Create input field that shows when editing
+  //   var inputEdit = document.createElement('input');
+  //   inputEdit.classList.add('col-xs-8');
+  //   inputEdit.classList.add('edit'); // What do I need to do with .edit? 
+
+  //   toDoView.appendChild(checkBox);
+  //   toDoView.appendChild(toDoItem);
+  //   toDoView.appendChild(removeToDoButton);
+  //   toDoItemDiv.appendChild(toDoView);
+  //   toDoItemDiv.appendChild(inputEdit);
+
+  //   toDoList.appendChild(toDoItemDiv);
+  // };
+
   var addToDo = function() {
     var toDoItemDiv = document.createElement('div');
     toDoItemDiv.classList.add('row', 'todo-item');
 
     // Create div for todo item, will be hidden when editing todo
     var toDoView = document.createElement('div');
-    toDoView.classList.add('view');
+    toDoView.classList.add('view', 'col-xs-offset-1', 'col-xs-10');
+
+    // Create label that shows todo text
+    var toDoItem = document.createElement('label');
+    toDoItem.textContent = inputField.value;
 
     // Create checkbox in front of todo item
     var checkBox = document.createElement('input');
     checkBox.setAttribute('type', 'checkbox');
-    checkBox.setAttribute('class', 'col-xs-1');
-    
-    // Create label that shows todo text
-    var toDoItem = document.createElement('label');
-    toDoItem.setAttribute('class', 'col-xs-8');
-    toDoItem.textContent = inputField.value;
+
+    toDoItem.appendChild(checkBox);
 
     // Create remove button
     var removeToDoButton = document.createElement('button');
-    removeToDoButton.classList.add('btn', 'btn-danger', 'remove-button');
+    /* .pull-right works to pull remove button to the right, without having to specify offsets at different breakpoints */
+    /* BUT .pull-right destroys alignment between todo item and remove button!! Will try something else. */
+    removeToDoButton.classList.add('btn', 'remove-button', 'col-sm-offset-1');
     removeToDoButton.textContent= 'Remove';
+
+    toDoView.appendChild(toDoItem);
+    toDoView.appendChild(removeToDoButton);
+
+    toDoItemDiv.appendChild(toDoView);
 
     // Create input field that shows when editing
     var inputEdit = document.createElement('input');
-    inputEdit.classList.add('col-xs-8');
-    inputEdit.classList.add('edit'); // What do I need to do with .edit? 
+    // inputEdit.classList.add('col-xs-8');
+    inputEdit.classList.add('edit', 'col-xs-offset-1', 'col-xs-10'); // What do I need to do with .edit? 
 
-    toDoView.appendChild(checkBox);
-    toDoView.appendChild(toDoItem);
-    toDoView.appendChild(removeToDoButton);
-    toDoItemDiv.appendChild(toDoView);
     toDoItemDiv.appendChild(inputEdit);
 
     toDoList.appendChild(toDoItemDiv);
@@ -121,7 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (event.key === 'Enter') {
       // display new text instead of old todo
-      editedToDo.parentElement.getElementsByTagName('label')[0].textContent = editedToDo.value;
+      // editedToDo.parentElement.getElementsByTagName('label')[0].textContent = editedToDo.value;
+      editedToDo.parentElement.getElementsByTagName('label')[0].innerHTML = `${editedToDo.value}<input type="checkbox">`;
       editedToDo.blur();
       editedToDo.parentElement.classList.remove('editing');
     } else if (event.key === 'Escape') {

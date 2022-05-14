@@ -14,7 +14,7 @@
 - [x] Each todo item should habe a checkbox.
   - [x] Clicking the checkbox should check it.
   - [x] Clicking the checkbox should NOT remove it. Only clicking the item's "remove" button should remove it. 
-- [ ] The to-do items and their remove buttons should be aligned!!
+- [x] The to-do items and their remove buttons should be aligned
 
 *Editing a todo:*
 - [x] Each todo should be editable by double-clicking it. 
@@ -72,3 +72,4 @@ I realized I had repeated myself in some places and repaired that by placing the
 
 'There’s a principle in programming called DRY, or Don’t Repeat Yourself. It usually means refactoring code by taking something done several times and turning it into a loop or a function. DRY code is easy to change, because you only have to make any change in one place.'
 URL: https://codinglead.co/javascript/what-is-DRY-code
+

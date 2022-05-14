@@ -11,29 +11,79 @@
 </head>
 <body> 
   <div class="container">
-
-    <!-- FIRST ROW: TITLE -->
-    <div class="row title">
-      <h1 class="col-xs-12">To-do list</h1>
-    </div>
-
-    <!-- SECOND ROW: TODO LIST -->
     <div class="row">
-      <div id="todo-list" class="col-xs-12">
-        <!-- Add each todo with Javascript -->
+      <div class="col-xs-8 col-md-6 content-box">
+        <!-- FIRST ROW: TITLE -->
+        <div class="row title">
+          <h1 class="col-xs-12 text-center">To-do list</h1>
+        </div>
+
+        <!-- SECOND ROW: TODO LIST -->
+        <div class="row">
+          <div id="todo-list" class="col-xs-12">
+            <!-- Add each todo with Javascript -->
+          </div>
+        </div>
+          
+        <!-- THIRD ROW: TODO INPUT FIELD -->
+        <div class="row todo-input">
+          <div class="col-xs-offset-2 col-xs-8">
+            <!-- <input id="inputField" type="text" class="form-control" placeholder="New to-do"> -->
+            <!-- doesn't align completely despite using input-group and form-control-->
+            <!-- <div class="input-group">
+              <input id="inputField" type="text" class="form-control" placeholder="New to-do">
+              <span class="input-group-btn">
+                <button id="addToDoButton" class="btn btn-default" type="button">Add to-do</button>
+              </span>
+            </div> -->
+            <div class="input-group">
+              <!-- When I use #inputField instead of .inputField, the button is misaligned with the input field. No idea why. -->
+              <input type="text" class="form-control inputField" placeholder="New to-do">
+              <span class="input-group-btn">
+                <button class="btn btn-default" id="addToDoButton" type="button">Add to-do</button>
+              </span>
+          </div>
+          </div>
+
+          <!-- EXPERIMENT with goal of aligning todo item text with remove button -->
+          <!-- It is possible to align the text and the button by making the todo item the text of the checkbox. Is it possible to set width to text of checkbox? -->
+          <!-- <div class="col-xs-8">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Check me out
+              </label>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+          </div> -->
+
+          <!-- <div class="col-xs-8">
+            <div class="view">
+              <label>
+                <input type="checkbox">todo item
+              </label>
+              <button type="submit" class="btn btn-default">Remove</button>
+            </div>
+            <input type="text" class="col-xs-8 edit">
+          </div> -->
+
+          <!-- How to align todo item text with remove button: put checkbox inside label!!! -->
+          <!-- <div class="col-xs-8">
+            <div class="view"> -->
+              <!-- Set label to width: 70% (as an example)-->
+              <!-- <label>Todo item -->
+                <!-- Set checkbox to float: left -->
+                <!-- <input type="checkbox">
+              </label>
+              <button type="submit" class="btn btn-default">Remove</button>
+            </div>
+            <input type="text" class="col-xs-8 edit">
+          </div> -->
+          <!-- <div class="col-xs-8">
+            <button id="addToDoButton" type="button" class="btn btn-primary">Add to-do</button> 
+          </div> -->
+        </div>
       </div>
     </div>
-      
-    <!-- THIRD ROW: TODO INPUT FIELD -->
-    <div class="row todo-input">
-      <div class="col-xs-8">
-        <input id="inputField" type="text" class="form-control" placeholder="New to-do">
-      </div>
-      <div class="col-xs-8">
-        <button id="addToDoButton" type="button" class="btn btn-primary">Add to-do</button> 
-      </div>
-    </div>
-    
   </div>
 
   <script src="./index.js"></script>

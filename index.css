@@ -1,3 +1,82 @@
+html { 
+  height: 100%;
+}
+
+body {
+  /* linear-gradient works only on an element with dimensions!*/
+  /* background: linear-gradient(#e66465, #9198e5);
+  height:100vh; */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-image: url('./images/donald-giannatti-HWTXldFPVKM-unsplash.jpg'),
+  url('./images/donald-giannatti-HWTXldFPVKM-unsplash_small.jpg');
+  background-position: top right, top right;
+  background-repeat: no-repeat,
+  no-repeat;
+  background-size: cover, cover;
+  height: 100%;
+}
+
+/* .container {
+  background-color: #f5f2f2;
+  min-width: 400px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9px;
+  padding: 15px;
+} */
+
+.content-box {
+  background-color: #f5f2f2;
+  /* min-width: 400px; */
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9px;
+  padding: 15px;
+}
+
+.title h1 {
+  color: #346fa1;
+  font-weight: 700;
+}
+
+
+.remove-button {
+  background-color: #5e96b8;
+  color: #eae2ec;
+  font-weight: 500;
+  /* float: right is what destroys the alignment between todo item and remove button!*/
+  /* adding .pull-right to button destroys alignment, too ! */
+  /* Set the remove button to the right by adding class col-xs-offset-1 instead. Alignment remains intact! */
+  /* float: right; */
+}
+
+.remove-button:hover {
+  color: #eae2ec;;
+}
+
+#addToDoButton {
+  background-color: #e6753b;
+  color: #eae2ec;
+  font-weight: 500;
+
+}
+
+.view label input {
+  float: left;
+  margin: 5px 10px 5px 5px;
+}
+
+.view label {
+  min-width: 70%;;
+  /* padding: 5px; */
+}
+
 .todo-item {
   /* Setting horizontal margins to 0 overwrites BS margins (-15px) on .row;*/
   margin-top: 15px;
@@ -13,7 +92,6 @@
   margin: 5px 0 10px 0;
 }
 
-/* Stimmt die Auswahl und Verkettung der Selektoren? */
 .todo-item.editing div.view {
   display: none;
 }
@@ -26,6 +104,11 @@ input.edit {
 /* Stimmt die Auswahl und Verkettung der Selektoren? */
 .todo-item.editing input.edit {
   display: block;
+}
+
+/* ========= Add todo input field ========== */
+.todo-input {
+  margin-top: 15px;
 }
 
 @keyframes fadeIn {
